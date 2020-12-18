@@ -20,7 +20,7 @@ for the [PySimpleGUI](https://pypi.org/project/PySimpleGUI/) module from  MikeTh
 
 ![GitHub Logo](/MAINGUI.PNG)
 
-The tool comes with a GUI interface. User has to provide the tool with any character he wishes the generated passwords to contain.
+The tool comes with a GUI interface. User has to provide the tool with any character he wishes the generated passwords to contain. Characters have to be separated by coma.
 
 User can choose an output folder for the generated password wordlist text file to be saved or leave it blank so that the output text file will be saved in the running exe folder.
 
@@ -28,6 +28,8 @@ User can choose an output folder for the generated password wordlist text file t
 ## IMPORTANT INFO
 
 - Tool writes the wordlist file in utf-8 so any language can be used for the password generation.
+
+- The tool can accept whole words or even phrases and not just characters. Each word or phrase should be separated by coma and that way it will be considered as one element for the password creation procedure, thus being scrambbled with every other character/word/phrase provided.
 
 - All signs and special characters can also be used as input characters for the password generation, except a '**coma**' character which is used as the separator! 
 
