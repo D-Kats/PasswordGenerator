@@ -12,22 +12,22 @@ def passGenerator(Inp, Out):
 	if Out == '':
 		try:
 			with open('wordlist.txt', 'w', encoding='utf-8') as fout:
-				for i in range(2,len(l)+1):
+				for i in range(2,len(l)+1):					
 					wordlist = list(itertools.permutations(l,i))
 					for current_pass in range(len(wordlist)):
 						str_pass = ''
-						fout.write(f'{str_pass.join([str(password) for password in wordlist[current_pass]])}\n')
+						fout.write(f'{str_pass.join([str(password) for password in wordlist[current_pass]])}\n')						
 				sg.PopupOK(f'Wordlist text file created succesfully in {os.getcwd()} folder', title=':)')
 		except Exception as e:
 			sg.PopupOK(f'Error: {e}. Please check output folder write permissions', title='!')
 	else:
-		try:
+		try:			
 			with open(f'{Out}\\wordlist.txt', 'w', encoding='utf-8') as fout:
-				for i in range(2,len(l)+1):
+				for i in range(2,len(l)+1):					
 					wordlist = list(itertools.permutations(l,i))
 					for current_pass in range(len(wordlist)):
 						str_pass = ''
-						fout.write(f'{str_pass.join([str(password) for password in wordlist[current_pass]])}\n')
+						fout.write(f'{str_pass.join([str(password) for password in wordlist[current_pass]])}\n')					
 				sg.PopupOK(f'Wordlist text file created succesfully in {Out} folder', title=':)')
 		except Exception as e:
 			sg.PopupOK(f'Error: {e}. Please check output folder write permissions', title='!')
@@ -51,7 +51,8 @@ layout = [[sg.Menu(menu_def, key='-MENUBAR-')],
 			[sg.Frame('INPUT',InputFrameLayout, element_justification='c')],
 			[sg.Frame('OUTPUT',OutputFrameLayout, element_justification='c')],
 			[sg.Frame('',ButtonsFrameLayout, element_justification='c')],
-			[sg.Text('Password Generator Ver. 1.0.0')]]
+			# [sg.ProgressBar(100, key='-PROGRESSBAR-', orientation='horizontal', style='vista')],
+			[sg.StatusBar('\nPassword Generator Ver. 1.0.0', relief='flat', justification='r', text_color='#435c69')]]
 
 window = sg.Window('PasswordGenerator', layout, element_justification='c') 
 
