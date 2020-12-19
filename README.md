@@ -31,7 +31,9 @@ User can choose an output folder for the generated password wordlist text file t
 
 - The tool can accept whole words or even phrases and not just characters. Each word or phrase should be separated by coma and that way it will be considered as one element for the password creation procedure, thus being scrambbled with every other character/word/phrase provided.
 
-- All signs and special characters can also be used as input characters for the password generation, except a '**coma**' character which is used as the separator! 
+- All signs and special characters can also be used as input characters for the password generation, except a '**coma**' character which is used as the separator!E
+
+- Each character provided is uniquely handled by the tool, so user could generate passwords containing multiple same characters by providing the specific character more than one time in the input widget.
 
 ## License
 [MIT](https://github.com/D-Kats/FileHarvester/blob/main/LICENSE)
