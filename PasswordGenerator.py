@@ -3,6 +3,7 @@ import PySimpleGUI as sg
 import os
 import itertools
 import webbrowser
+import time
 
 
 #---function definition
@@ -11,24 +12,38 @@ def passGenerator(Inp, Out):
 
 	if Out == '':
 		try:
+			bar_curr_progress = 0
+			bar_count_step = round(100/len(l)+1)
 			with open('wordlist.txt', 'w', encoding='utf-8') as fout:
 				for i in range(2,len(l)+1):					
 					wordlist = list(itertools.permutations(l,i))
 					for current_pass in range(len(wordlist)):
 						str_pass = ''
-						fout.write(f'{str_pass.join([str(password) for password in wordlist[current_pass]])}\n')						
+						fout.write(f'{str_pass.join([str(password) for password in wordlist[current_pass]])}\n')
+					bar_curr_progress += bar_count_step
+					window['-PROGRESSBAR-'].update(bar_curr_progress)
+				bar_curr_progress += bar_count_step						
+				window['-PROGRESSBAR-'].update_bar(bar_curr_progress)					
 				sg.PopupOK(f'Wordlist text file created succesfully in {os.getcwd()} folder', title=':)')
+				window['-PROGRESSBAR-'].update_bar(0)
 		except Exception as e:
 			sg.PopupOK(f'Error: {e}. Please check output folder write permissions', title='!')
 	else:
-		try:			
+		try:
+			bar_curr_progress = 0
+			bar_count_step = round(100/len(l)+1)			
 			with open(f'{Out}\\wordlist.txt', 'w', encoding='utf-8') as fout:
 				for i in range(2,len(l)+1):					
 					wordlist = list(itertools.permutations(l,i))
 					for current_pass in range(len(wordlist)):
 						str_pass = ''
-						fout.write(f'{str_pass.join([str(password) for password in wordlist[current_pass]])}\n')					
+						fout.write(f'{str_pass.join([str(password) for password in wordlist[current_pass]])}\n')
+					bar_curr_progress += bar_count_step
+					window['-PROGRESSBAR-'].update(bar_curr_progress)
+				bar_curr_progress += bar_count_step						
+				window['-PROGRESSBAR-'].update_bar(bar_curr_progress)					
 				sg.PopupOK(f'Wordlist text file created succesfully in {Out} folder', title=':)')
+				window['-PROGRESSBAR-'].update_bar(0)
 		except Exception as e:
 			sg.PopupOK(f'Error: {e}. Please check output folder write permissions', title='!')
 
@@ -51,8 +66,9 @@ layout = [[sg.Menu(menu_def, key='-MENUBAR-')],
 			[sg.Frame('INPUT',InputFrameLayout, element_justification='c')],
 			[sg.Frame('OUTPUT',OutputFrameLayout, element_justification='c')],
 			[sg.Frame('',ButtonsFrameLayout, element_justification='c')],
-			# [sg.ProgressBar(100, key='-PROGRESSBAR-', orientation='horizontal', style='vista')],
-			[sg.StatusBar('\nPassword Generator Ver. 1.0.0', relief='flat', justification='r', text_color='#435c69')]]
+			# [sg.Text('\nProgress Bar')],
+			[sg.ProgressBar(100, key='-PROGRESSBAR-', orientation='horizontal', style='vista', size=(40, 5))],
+			[sg.StatusBar('\nPassword Generator Ver. 1.0.1', relief='flat', justification='r', text_color='#435c69')]]
 
 window = sg.Window('PasswordGenerator', layout, element_justification='c') 
 
@@ -70,7 +86,7 @@ while True:
 		except:
 			sg.PopupOK('Visit https://github.com/D-Kats for documentation', title='Documentation')
 	if event == 'About':
-		sg.PopupOK('PasswordGenerator Ver. 1.0.0 \n\n --DKats 2020', title='-About-', background_color='#2a363b')
+		sg.PopupOK('PasswordGenerator Ver. 1.0.1 \n\n --DKats 2020', title='-About-', background_color='#2a363b')
 
 	if event == 'Run':
 		if values['-CHARS-'] == '':
@@ -79,6 +95,5 @@ while True:
 			sg.PopupOK('Please give more than one character for the wordlist. Separate them by coma!', title='!')
 		else:
 			passGenerator(values['-CHARS-'], values['-OUT-'])
-
-
+	
 window.close()
